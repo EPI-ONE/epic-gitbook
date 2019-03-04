@@ -1,9 +1,12 @@
 # Table of contents
 
 * [Overview](README.md)
-* Installation
-* Blocks
+* [Installation](installation/Installation.md)
+* [Blocks and Transactions](blocks/Blocks and Transactions.md)
 * DAG Manager
 * Network
-* DB
+* Database Management
+* RPC
+  * Mining
+  * Wallet
 
