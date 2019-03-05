@@ -1,12 +1,18 @@
 # Table of contents
 
 * [Overview](README.md)
-* [Installation](installation/Installation.md)
-* [Blocks and Transactions](blocks/Blocks and Transactions.md)
-* DAG Manager
-* Network
-* Database Management
-* RPC
-  * Mining
-  * Wallet
+
+## Getting Started
+
+* [Installation](getting-started/installation.md)
+
+## Guides
+
+* [Blocks and Transactions](guides/blocks-and-transactions.md)
+* [DAG Manager](guides/dag-manager.md)
+* [Network](guides/network.md)
+* [Database Management](guides/database-management.md)
+* [RPC](guides/rpc/README.md)
+  * [Mining](guides/rpc/mining.md)
+  * [Wallet](guides/rpc/wallet.md)
 

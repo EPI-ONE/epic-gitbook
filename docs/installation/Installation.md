@@ -1,3 +1,0 @@
-# Installation
-
-Currently for testing
