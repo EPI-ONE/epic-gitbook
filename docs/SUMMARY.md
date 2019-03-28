@@ -8,7 +8,8 @@
 
 ## Guides
 
-* [Blocks and Transactions](guides/blocks-and-transactions.md)
+* [Block](guides/block.md)
+* [Transaction](guides/transaction.md)
 * [DAG Manager](guides/dag-manager.md)
 * [Network](guides/network.md)
 * [Database Management](guides/database-management.md)
