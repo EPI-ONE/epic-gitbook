@@ -1,7 +1,14 @@
 # Overview
 
 ## Motivation
-## What is EPI? 
-https://arxiv.org/abs/1901.02755
+
+## What is EPI?
+
+[https://arxiv.org/abs/1901.02755](https://arxiv.org/abs/1901.02755)
+
 ## Video Explanation
-https://youtu.be/UEeYkIvl6dA
+
+{% embed url="https://youtu.be/UEeYkIvl6dA" %}
+
+
+
