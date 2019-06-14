@@ -1,6 +1,7 @@
 # Overview
 
-1. Motivation
-2. What is EPI? 
-3. Video Explanation
-
+## Motivation
+## What is EPI? 
+https://arxiv.org/abs/1901.02755
+## Video Explanation
+https://youtu.be/UEeYkIvl6dA
