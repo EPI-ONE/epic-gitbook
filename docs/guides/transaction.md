@@ -40,36 +40,5 @@ Registration and Redemption are transactions that are automatically generated wh
   * Signature failed
   * Transaction fees to large \(greater than `MAX_MONEY`\)
 * Invalid transaction will catch exception and terminate
-* Only valid transaction will be allowed to accumulate reward
-
-This is an enum that describes the underlying reason the transaction was created. It's useful for rendering wallet GUIs more appropriately.
-
-```java
-public enum Status {
-        UNKNOWN(0),
-        VALID(1),
-        INVALID(2);
-
-        private int value;
-        private static Map<Integer, Status> map = new HashMap<>();
-
-        private Status(int value) {
-            this.value = value;
-        }
-
-        static {
-            for (Status Status : Status.values()) {
-                map.put(Status.value, Status);
-            }
-        }
-
-        public static Status valueOf(int Status) {
-            return map.get(Status);
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-```
+* Only valid transaction will be allowed to accumulate rewardThis is an enum that describes the underlying reason the transaction was created. It's useful for rendering wallet GUIs more appropriately.
 

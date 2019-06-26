@@ -37,6 +37,17 @@ Each block contains only one transaction. There are 2 types of block: normal and
 
 ![Block Header Structure](../.gitbook/assets/screenshot-2019-03-28-at-1.09.26-pm.png)
 
+| Field                    | Type (Size)           | Description                                                  |
+| ------------------------ | --------------------- | ------------------------------------------------------------ |
+| Version                  | uint (4 bytes)        | The version of the block.                                    |
+| Block Hash               | Sha256Hash (32 bytes) | Hash of all information in the block.                        |
+| Milestone Block Hash     | Sha256Hash (32 bytes) | The Block Hash referencing the current latest milestone.     |
+| Previous Node Block Hash | Sha256Hash (32 bytes) | The Block Hash referencing the peer's previous block in the peer chain. |
+| Tip Block Hash           | Sha256Hash (32 bytes) | The Block Hash referencing a random tip.                     |
+| Time                     | uint (4 bytes)        | The Unix time at which the Block Hash is generated.          |
+| difficultyTarget         | uint (4 bytes)        | A shortened version of the Target.                           |
+| Nonce                    | uint (4 bytes)        | The field that miners change in order to try and get a hash of the block (Block Hash) that is below the Target. |
+
 Each block has 3 pointers to 3 different blocks:
 
 * Latest milestone block
