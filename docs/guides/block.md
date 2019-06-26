@@ -37,8 +37,6 @@ Each block contains only one transaction. There are 2 types of block: normal and
 
 ![Block Header Structure](../.gitbook/assets/screenshot-2019-03-28-at-1.09.26-pm.png)
 
-**Header**
-
 Each block has 3 pointers to 3 different blocks:
 
 * Latest milestone block
@@ -46,6 +44,4 @@ Each block has 3 pointers to 3 different blocks:
 * Tip block
 
 The pointers will connect to the Genesis block if those blocks cannot be found.
-
-**Content** \(Refer to Transaction\)
 

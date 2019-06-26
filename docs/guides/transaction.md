@@ -12,7 +12,7 @@ The structure of a typical transaction
 
 ### Registration and Redemption
 
-Registration and redemption are different transactionThe purpose of Registration and Redemption transaction is to replace coinbase transaction used by Bitcoin. With huge mining traffic, the use of coinbase transaction generated for every new transaction is not efficient for data storage.
+Registration and Redemption are transactions that are automatically generated when peers decide to create a peer chain and redeem the block rewards. The purpose of Registration and Redemption transaction is to replace coinbase transaction used by Bitcoin. With huge mining traffic, the use of coinbase transaction generated for every new transaction is not efficient for data storage.
 
 #### Registration
 
