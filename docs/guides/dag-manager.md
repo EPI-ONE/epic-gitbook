@@ -1,5 +1,7 @@
 # DAG Manager
 
+This is a basic guide on the main logic and properties of DAG. For detailed explanation, please refer to [research paper](https://arxiv.org/pdf/1901.02755.pdf).
+
 ## Peer Chain
 
 ![Peer Chain Illustration](../.gitbook/assets/screenshot-2019-03-28-at-1.06.57-pm.png)
@@ -27,20 +29,8 @@
 * In a high TPS environment, Bitcoin's mempool design is not efficient because the same transaction will be mined by multiple miners. This may cause miners to waste their computing power as some of their blocks might have been mined by other earlier miners.
 * Attackers might be able to exploit this by initiating transactions with high fees and flood the system with mined transactions
 * We use transaction partition to ensure some transactions can only mined by certain miners
-* Allowed Distance
-  * Let’s say we estimate hash power of previous n blocks to determine the transactions that next block can mine.
-    * Add the difficulty value of n blocks according to time order \(the same as reference order\)
-    * Compute the time span of n blocks;
-    * Allowed Distance = Coefficient  _MaxTarget_  Difficulty sum / Previous MS hash rate / time span
-* Distance Calculation
-
-  * Calculate the last 4 bytes of each of each hash and convert it to int
-  * Add these 2 int, allowing overflow
-  * Convert to unsigned int
-
-  $$
-  d(a,b) := \mbox{unsigned} (\mbox{int}(a) + \mbox{int}(b))
-  $$
+* The basic idea is to limit the number of transactions a miner can process depending on each miner's hashing power
+* A parameter is adjusted to ensure a balance is maintained between the time a transaction is expected to wait in the mempool and the wasted energy due to collision in mined transactions.
 
 ## Synchronization: Workflow and API
 

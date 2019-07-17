@@ -10,9 +10,9 @@ The problem lies within the blockchain structure where transactions in a block w
 
 EPI is a consensus mechanism design project based on directed acyclic graph \(DAG\). This project aims to solve Bitcoin's scalability issue by exploring different data structures that could scale without compromising decentralization and security. Our philosophy is to retain Bitcoin's core design that makes it robust and replacing/improving the parts that restrict its scaling capability.
 
-This design fundamentally breaks one Bitcoin blocks into multiple smaller ones to allow continuous flow of data exchange in a decentralized system. Each blocks only contain one transaction which makes the two very similar conceptually but different in structure. A special block called a Milestone is introduced to maintain consensus among peers. The milestone has much higher difficulty than a normal block and requires more time to mine. The connected milestone essentially forms a chain which is very similar to a Nakamoto chain in Bitcoin. Each peers have their own chain connected to the genesis block. Each blocks have three pointers: its previous milestone block, tip block and own block. This structure allows peers to continuously broadcast blocks while the consensus is determined by milestone blocks.
+This design fundamentally breaks one Bitcoin blocks into multiple smaller ones to allow continuous flow of data exchange in a decentralized system. Each blocks only contain one transaction which makes the two very similar conceptually but different in structure. A special block called a Milestone is introduced to maintain consensus among peers. The milestone has much higher difficulty than a normal block and requires more time to mine. The connected milestones essentially forms a chain which is very similar to a Nakamoto chain in Bitcoin. Each peers have their own chain connected to the genesis block. Each blocks have three pointers: its previous milestone block, tip block and own block. This structure allows peers to continuously broadcast blocks while having consensus maintained by milestone blocks.
 
-Further reading please refer to our research paper: [https://arxiv.org/abs/1901.02755](https://arxiv.org/abs/1901.02755)
+Further reading please refer to our [research paper](https://arxiv.org/abs/1901.02755).
 
 ## Video Explanation
 
