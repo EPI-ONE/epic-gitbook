@@ -4,9 +4,9 @@
 
 ## Getting Started
 
-* [Installation](getting-started/installation.md)
-  * [Mac](getting-started/dependency_mac.md)
-  * [Linux](getting-started/dependency_linux.md)
+* [Installation](getting-started/installation/README.md)
+  * [Mac](getting-started/installation/dependency_mac.md)
+  * [Linux](getting-started/installation/linux.md)
 
 ## Guides
 

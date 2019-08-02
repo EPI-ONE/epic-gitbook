@@ -1,8 +1,8 @@
-# Install Dependencies for EPIC on MacOS
+# Mac
 
 The `epic` project is compatible with MacOS Mojave. In order to compile and run `epic`, the following depencencies are needed.
 
-### LLVM 
+## LLVM
 
 ```bash
 brew install llvm
@@ -17,13 +17,13 @@ export CPPFLAGS="-I/usr/local/opt/llvm/include"
 export LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"
 ```
 
-### Cmake
+## Cmake
 
 ```bash
 brew install cmake
 ```
 
-### RocksDB
+## RocksDB
 
 It is quite simple on MacOS, though it's really complicated on Linux.
 
@@ -31,7 +31,7 @@ It is quite simple on MacOS, though it's really complicated on Linux.
 brew install rocksdb
 ```
 
-### libsecp256k1
+## libsecp256k1
 
 This package is installed by autoconfig so the following tools are required and can be simply installed using `brew`.
 
@@ -39,7 +39,7 @@ This package is installed by autoconfig so the following tools are required and 
 brew install automake autoconf libtool
 ```
 
- `libsecp256k1` alse requires `gmp`, which can be installed by `brew`
+`libsecp256k1` alse requires `gmp`, which can be installed by `brew`
 
 ```bash
 brew install gmp
@@ -57,11 +57,11 @@ make
 sudo make install
 ```
 
-### Libevent
+## Libevent
 
-Despite it can be installed by `brew`, `epic` requires `libevent-release-2.1.8` be be manually installed from source. 
+Despite it can be installed by `brew`, `epic` requires `libevent-release-2.1.8` be be manually installed from source.
 
-For this, you need to first install `openssl` by 
+For this, you need to first install `openssl` by
 
 ```bash
 brew install openssl
@@ -86,9 +86,9 @@ sudo make install
 make verify  # (optional)
 ```
 
-### GoogleTest
+## GoogleTest
 
-Despite it can be installed by `brew`, `epic` requires  `release-1.8.1` be be manually installed from source. 
+Despite it can be installed by `brew`, `epic` requires `release-1.8.1` be be manually installed from source.
 
 ```bash
 wget https://github.com/google/googletest/archive/release-1.8.1.zip
@@ -98,7 +98,7 @@ cmake ..
 make && sudo make install
 ```
 
-### gRPC
+## gRPC
 
 Although the latest release 1.22 can be installed via `brew`, `epic` need to install it from source. First need to install dependency
 
@@ -112,7 +112,7 @@ Then some C header files are required. This step is complicated since MacOS Moja
 ls /Library/Developer/CommandLineTools/Packages
 ```
 
-If you have something like `macOS_SDK_headers_for_macOS_10.14.pkg` in this folder, then you can skip the next step. Otherwise, please go to https://developer.apple.com/download/more/ and download `Command Line Tools (macOS 10.14) for Xcode 10.2.1.dmg` and install. After this, you will find `/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg`. After install this package, you will have the required system header files. Now, you can build from source. 
+If you have something like `macOS_SDK_headers_for_macOS_10.14.pkg` in this folder, then you can skip the next step. Otherwise, please go to [https://developer.apple.com/download/more/](https://developer.apple.com/download/more/) and download `Command Line Tools (macOS 10.14) for Xcode 10.2.1.dmg` and install. After this, you will find `/Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg`. After install this package, you will have the required system header files. Now, you can build from source.
 
 ```bash
 git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
@@ -122,8 +122,9 @@ make
 sudo make install
 ```
 
-### Protocol Buffers
+## Protocol Buffers
 
 ```bash
 brew install protobuf
 ```
+

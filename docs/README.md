@@ -1,12 +1,19 @@
+---
+description: >-
+  > I think most creative people want to express appreciation for being able to
+  take advantage of the work that’s been done by others before us. I didn’t
+  invent the language or mathematics I use.
+---
+
+# Overview
+
 > I think most creative people want to express appreciation for being able to take advantage of the work that’s been done by others before us. I didn’t invent the language or mathematics I use. I make little of my own food, none of my own clothes. Everything I do depends on other members of our species and the shoulders that we stand on. And a lot of us want to contribute something back to our species and to add something to the flow. It’s about trying to express something in the only way that most of us know how—because we can’t write Bob Dylan songs or Tom Stoppard plays. We try to use the talents we do have to express our deep feelings, to show our appreciation of all the contributions that came before us, and to add something to that flow.
 >
 > Steve Jobs
 
-
-
 ## About this project
 
-Epic is a pow chain that achives an order of magnitude improvement on the throughput without sacraficing the security and decentralization. 
+Epic is a pow chain that achives an order of magnitude improvement on the throughput without sacraficing the security and decentralization.
 
 ## Motivation
 
