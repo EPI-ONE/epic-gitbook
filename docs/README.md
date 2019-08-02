@@ -18,7 +18,7 @@ Epic is a pow chain that achives an order of magnitude improvement on the throug
 
 ## Motivation
 
-Blockchain technology $\lambda$ is fundamentally a consensus mechanism design based on a chain structure of storing information in a distributed manner over a peer-to-peer network. Bitcoin has been one of the most successful use case of this technology but its problem with scalability prevents it from being used as sound money, particularly due to poor medium of exchange.
+Blockchain technology is fundamentally a consensus mechanism design based on a chain structure of storing information in a distributed manner over a peer-to-peer network. Bitcoin has been one of the most successful use case of this technology but its problem with scalability prevents it from being used as sound money, particularly due to poor medium of exchange.
 
 The problem lies within the blockchain structure where transactions in a block would need to wait for 10 minutes before being confirmed and broadcasted to the network. Although this was implemented to reduce the frequency of forks which leads to wasted work, this particular design restricts Bitcoin from scaling. Further research for alternative designs is required to build the underlying technology for sound money.
 
