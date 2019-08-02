@@ -1,6 +1,6 @@
 ---
 description: >-
-  > I think most creative people want to express appreciation for being able to
+  I think most creative people want to express appreciation for being able to
   take advantage of the work that’s been done by others before us. I didn’t
   invent the language or mathematics I use.
 ---
@@ -11,9 +11,31 @@ description: >-
 >
 > Steve Jobs
 
+> zxcxcv
+>
+> >
+
+$$
+\sqrt{x \sin(x)}=f(x)
+$$
+
+{% tabs %}
+{% tab title="First Tab" %}
+`int a = 4;`  
+{% endtab %}
+
+{% tab title="fwrewr" %}
+wqerwe
+{% endtab %}
+{% endtabs %}
+
+{% hint style="info" %}
+sadfwerwer
+{% endhint %}
+
 ## About this project
 
-Epic is a pow chain that achives an order of magnitude improvement on the throughput without sacraficing the security and decentralization.
+Epic is a pow chain that achives an order of magnitude improvement on the throughput without sacrificing the security and decentralization.
 
 ## Motivation
 
