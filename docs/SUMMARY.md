@@ -5,6 +5,8 @@
 ## Getting Started
 
 * [Installation](getting-started/installation.md)
+  * [Mac](getting-started/dependency_mac.md)
+  * [Linux](getting-started/dependency_linux.md)
 
 ## Guides
 
