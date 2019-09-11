@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-* [Installation](install.md)
+* [Installation](INSTALL.md)
 * [Compile and Run](compile-run.md)
 
 ## Implementation 
