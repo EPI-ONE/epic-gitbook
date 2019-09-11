@@ -4,18 +4,15 @@
 
 ## Getting Started
 
-* [Installation](getting-started/installation/README.md)
-  * [Mac](getting-started/installation/dependency_mac.md)
-  * [Linux](getting-started/installation/linux.md)
+* [Installation](install.md)
+* [Compile and Run](compile-run.md)
 
-## Guides
+## Implementation 
 
-* [Block](guides/block.md)
-* [Transaction](guides/transaction.md)
-* [DAG Manager](guides/dag-manager.md)
-* [Network](guides/network.md)
-* [Database Management](guides/database-management.md)
-* [RPC](guides/rpc/README.md)
-  * [Mining](guides/rpc/mining.md)
-  * [Wallet](guides/rpc/wallet.md)
-
+* [Implementation](implementation/README.md)
+  * [Block](implementation/block.md)
+  * [Transaction](implementation/transaction.md)
+  * [DAG Manager](implementation/dag-manager.md)
+  * [Network](implementation/network.md)
+  * [Database Management](implementation/database-management.md)
+  * [RPC](implementation/rpc.md)

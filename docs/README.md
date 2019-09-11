@@ -1,28 +1,41 @@
 # Overview
 
-> We want to express appreciation for being able to take advantage of the work that’s been done by others before us. We didn’t invent the language or mathematics. Everything we do depends on other members of our species and the shoulders that we stand on. We try to use the talents we do have to  add something to that flow.
+> We want to express appreciation for being able to take advantage of the work that’s been done by others before us. We didn’t invent the language or mathematics. Everything we do depends on other members of our species and the shoulders that we stand on. We try to use the talents we do have to add something to that flow.
 >
 > — Steve Jobs
 
-## About this project
+## Objective
 
-Epic is a pow chain that achives an order of magnitude improvement on the throughput without sacrificing the security and decentralization.
+`epic` is a POW (proof-of-work) chain that achieves an order of magnitude improvement on the throughput over current mainstream cryptocurrencies, e.g, Bitcoin, without compromising security and decentralization. The designed max TPS (transaction per second) is **1024** per second. Miners collectively create **8** `blocks` per second on average, each containing up to **128** `transactions`. You may join the `epic` network by running a node following the [instruction](compile--run.md). `epic` uses the same UTXO system as Bitcoin, consequently no rosy applications like Hello Kitty or Texas Poker for now.
 
-## Motivation
+## Consensus Mechanism
 
-Blockchain technology is fundamentally a consensus mechanism design based on a chain structure of storing information in a distributed manner over a peer-to-peer network. Bitcoin has been one of the most successful use case of this technology but its problem with scalability prevents it from being used as sound money, particularly due to poor medium of exchange.
+The main idea is to expand a chain of blocks, e.g. the Bitcoin blockchain, to a more general graph of blocks organized in a certain structure. Refer to our [paper](https://arxiv.org/abs/1901.02755) for the full description or this video [presentation](https://youtu.be/UEeYkIvl6dA) for a verbal explanation. Here we provide a brief description and some intuition. The blocks are organized in a **structured Directed Acyclic Graph** (sDAG): 
 
-The problem lies within the blockchain structure where transactions in a block would need to wait for 10 minutes before being confirmed and broadcasted to the network. Although this was implemented to reduce the frequency of forks which leads to wasted work, this particular design restricts Bitcoin from scaling. Further research for alternative designs is required to build the underlying technology for sound money.
+- Each miner forms a `peer chain` by connecting his newly mined block to his most recently created block. Miners, depending on their mining power, has the flexibility of creating several parallel `peer chains` by splitting their mining power to these parallel chains.
+- Each block turns out to be either a `milestone` with probability $$\frac{1}{128}$$, or a `regular` block with probability $$\frac{127}{128}$$. Before a block is successfully mined, the miner has no idea which type it will turn out to be.
+- In addition to connecting to its immediate preceding block in the peer chain, each block, regardless of its type, must point to two additional blocks: the most recent `milestone` and another `regular` block on a different `peer chain`.  
 
-## What is EPI?
+In our sDAG, all the `milestones` form a chain, connecting the parallel `peer chains`. The connectivity among the parallel `peer chains` is quite strong since each block needs to point to another `regular` block on a different `peer chain`. 
 
-EPI is a consensus mechanism design project based on directed acyclic graph \(DAG\). This project aims to solve Bitcoin's scalability issue by exploring different data structures that could scale without compromising decentralization and security. Our philosophy is to retain Bitcoin's core design that makes it robust and replacing/improving the parts that restrict its scaling capability.
+### Continusous propogation over the network
 
-This design fundamentally breaks one Bitcoin blocks into multiple smaller ones to allow continuous flow of data exchange in a decentralized system. Each blocks only contain one transaction which makes the two very similar conceptually but different in structure. A special block called a Milestone is introduced to maintain consensus among peers. The milestone has much higher difficulty than a normal block and requires more time to mine. The connected milestones essentially forms a chain which is very similar to a Nakamoto chain in Bitcoin. Each peers have their own chain connected to the genesis block. Each blocks have three pointers: its previous milestone block, tip block and own block. This structure allows peers to continuously broadcast blocks while having consensus maintained by milestone blocks.
+Organized in the sDAG, we will be able to break a big block, e.g., Bitcoin block containing thousands of transactions, into smaller ones, allowing quick dispersions of information across a peer-to-peer network continuously. The motivation for such a design is that the state-of-art Bitcoin blockchain network propagates a block of 1 Megabyte periodically every 10 minutes on average. During the interval, the capacity of the network is wasted. Many smaller blocks propagating over a peer-to-peer network in a more "continuous" fashion significantly improve the utilization of the network capacity. Fundamentally, to build a high TPS system, the corresponding amount of information has to be synchronized across the network. Increasing the utilization of network, before the current Internet infrastructure upgrades to be faster, is important.
 
-Further reading please refer to our [research paper](https://arxiv.org/abs/1901.02755).
+### Reaching consensus 
 
-## Video Explanation
+While benefitting from the increased utilization of the network capacity, many smaller blocks organized in a more general structure than a chain certainly brings challenges on reaching consensus. This is resolved by the design of our sDAG. We say a block is *confirmed* by a `milestone` if it is connected to the `milestone` directly or indirectly. For each `milestone`, it is associated with a *level set*, all the regular blocks confirmed by this `milestone` but not by any preceding `milestone`. Essentially, all the level sets form a chain, same as the Bitcoin blockchain. In this way, a consensus is reached in the same way as the Bitcoin by POW and Nakamoto concensus proposed in the original [Bitcoin white paper](https://bitcoin.org/bitcoin.pdf). As a result, the security of `epic` is guaranteed in the exactly the same way as the Bitoin.
 
-{% embed url="https://youtu.be/UEeYkIvl6dA" caption="" %}
+### Fast confirmation
 
+To ensure a certain security level, Bitcoin needs to wait for a certain number of blocks to *confirm a transaction*. For example, to limit the probability of a successful attack by 0.001 given 10% malicious mining power, we will have to wait for 6 blocks. In order to achieve the same security, we need to wait for the same number of milestones provided the same percentage of malicious mining power. A simple calculation based on the above parameters shows that a `milestone` will be created on average every 16 seconds in `epic`. We can achieve a faster transaction confirmation because the speed of creating milestones is faster (16 seconds v.s. 10 minutes), not because we are using a more superior consensus mechanism. However, we are working on incorporating the idea of multiple verifying chains proposed in the [paper](https://arxiv.org/abs/1810.08092) so that confirmation can be much faster because the number of milestones we have to wait is reduced. 
+
+### Transaction Assignment
+
+In a high TPS system, different miners may work on the same `transaction` from the mempool causing waste of capacity, despite that consensus is not affected. To reduce waste, we design the transaction assignment rule. A miner can process a `transaction` only if the hash of this transaction and his most recent block exhibit a certain pattern. Intuitively, transactions in the mempool are "distributed" to miners (more precisely `peer chains`) in a probabilistic fashion.  Our [paper](https://arxiv.org/abs/1901.02755) shows a quantitative computation of how such probability affects the waiting time of a transaction in the mempool and the wasted capacity. Under our carefully chosen parameters, the capacity waste is controlled under 1% and the waiting time in mempool is roughly in the order of seconds when the system is underloaded. In fact, the waiting time will largely depend on the speed at which all the users generate transactions if that speed is close to the system capacity, namely the max TPS. 
+
+### POW and reward scheme
+
+Blocks are created by POW, using the [cuckoo](https://github.com/tromp/cuckoo) algorithm. Users may choose to provide transaction fees in the same way as in the Bitcoin system. In addition to this reward, each block brings a block reward. Each `milestone` brings an additional reward depending on the number of regular blocks in its `level set`. Such a reward scheme incentivize miners to connect to recent blocks on another `peer chain` to enhance the connectivity of the sDAG. 
+
+In Bitcoin, each block reward generates a coinbase. If blocks are mined at a much higher speed, the number of UTXO will explode. To avoid this, we let miner redeem his reward by creating a normal transaction every once in a while, with the frequency completely depending on the miner. 
