@@ -1,4 +1,4 @@
-# DAG Manager
+# Structured DAG
 
 This is a basic guide on the main logic and properties of DAG. For detailed explanation, please refer to [research paper](https://arxiv.org/pdf/1901.02755.pdf).
 

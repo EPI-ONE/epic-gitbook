@@ -6,7 +6,7 @@
 
 ## Objective
 
-`epic` is a POW (proof-of-work) chain that achieves an order of magnitude improvement on the throughput over current mainstream cryptocurrencies, e.g, Bitcoin, without compromising security and decentralization. The designed max TPS (transaction per second) is **1024** per second. Miners collectively create **8** `blocks` per second on average, each containing up to **128** `transactions`. You may join the `epic` network by running a node following the [instruction](compile--run.md). `epic` uses the same UTXO system as Bitcoin, consequently no rosy applications like Hello Kitty or Texas Poker for now.
+`epic` is a POW (proof-of-work) chain that achieves an order of magnitude improvement on the throughput over current mainstream cryptocurrencies, e.g, Bitcoin, without compromising security and decentralization. The designed max TPS (transaction per second) is **1024** per second. Miners collectively create **8** `blocks` per second on average, each containing up to **128** `transactions`. You may join the `epic` network by running a node following the [instruction](getting-started/compile-run). `epic` uses the same UTXO system as Bitcoin, consequently no rosy applications like Hello Kitty or Texas Poker for now.
 
 ## Consensus Mechanism
 

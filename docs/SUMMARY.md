@@ -4,15 +4,18 @@
 
 ## Getting Started
 
-* [Installation](INSTALL.md)
+* [Dependencies](INSTALL.md)
 * [Compile and Run](compile-run.md)
 
 ## Implementation 
 
-* [Implementation](implementation/README.md)
-  * [Block](implementation/block.md)
+* [Architecture](architecture.md)
+* Consensus
+  * [sDAG](implementation/sDAG.md)
+* Messages
   * [Transaction](implementation/transaction.md)
-  * [DAG Manager](implementation/dag-manager.md)
-  * [Network](implementation/network.md)
-  * [Database Management](implementation/database-management.md)
-  * [RPC](implementation/rpc.md)
+  * [Block](implementation/block.md)
+* [Network](implementation/network.md)
+* [Storage](implementation/storage.md)
+* [RPC](implementation/rpc.md)
+

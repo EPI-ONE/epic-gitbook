@@ -1,4 +1,4 @@
-# Install
+# Dependencies
 
 ## Basic tools via system installation
 
