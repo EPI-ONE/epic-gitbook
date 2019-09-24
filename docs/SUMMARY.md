@@ -11,12 +11,11 @@
 ## Implementation 
 
 * [Architecture](architecture.md)
-* Consensus
-  * [sDAG](implementation/sDAG.md)
-* Messages
+* Developer references
+  
+  * [Consensus](implementation/sDAG.md)
+  
   * [Transaction](implementation/transaction.md)
   * [Block](implementation/block.md)
-* [Network](implementation/network.md)
-* [Storage](implementation/storage.md)
-* [RPC](implementation/rpc.md)
-
+  * [Network](implementation/network.md)
+  * [Storage](implementation/storage.md)
