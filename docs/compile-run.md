@@ -26,9 +26,9 @@ Make sure dependencies have all been successfully installed following the [instr
 git clone https://github.com/epi-one/epic/
 cd epic && mkdir build && cd build
 # Debug mode by default
-cmake ..
+# cmake ..
 # Release mode
-# cmake -DCAMKE_BUILD_TYPE=Release ..
+cmake -DCAMKE_BUILD_TYPE=Release ..
 make -j
 ```
 
@@ -50,13 +50,17 @@ $ export ASAN_OPTIONS="protect_shadow_gap=0"
 After successful compile, you may run the test
 
 ```bash
-./bin/epictest
+cd ../bin
+# you may run the following test
+./epictest
 ```
 
 You may simply run the following command to start the daemon. 
 
-```
-./bin/epic
+```bash
+# runing the daemon
+./epic --configpath /path/to/toml
+# a default config.toml is provided in the project root folder
 ```
 
 Essentially, your server is participating in the network by syncing data with peers, verifying received blocks/transactions, maintaining UTXO by building ledgers, responding to RPC request. If you have GPU on your server, you should be able to mine blocks from time to time depending on the how the computing power of your GPU compared to that over the whole network. You may also connect another GPU server to your daemon by running
@@ -68,7 +72,8 @@ Essentially, your server is participating in the network by syncing data with pe
 We also provide some command line tools to communicate with a daemon
 
 ```bash
-./bin/epicc [OPTIONS] [COMMAND]
+# send rpc command to daemon
+./epic-cli [OPTIONS] [COMMAND]
 ```
 
 
