@@ -8,14 +8,10 @@
 * [Dependencies](INSTALL.md)
 * [Compile and Run](compile-run.md)
 
-## Implementation 
+## Developer Guide
 
-* [Architecture](architecture.md)
-* Developer references
-  
-  * [Consensus](implementation/sDAG.md)
-  
-  * [Transaction](implementation/transaction.md)
-  * [Block](implementation/block.md)
-  * [Network](implementation/network.md)
-  * [Storage](implementation/storage.md)
+* [Architecture](developer_guide/architecture.md)
+* [Network](developer_guide/network.md)
+* [Sturctured DAG](developer_guide/sDAG.md)
+* [Consensus](developer_guide/mining_consensus.md)
+* [Storage](developer_guide/storage.md)
