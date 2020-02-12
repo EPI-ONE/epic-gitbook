@@ -93,14 +93,14 @@ Here’s the data structures of the sync messages used above.
 
 | Field   | Type          | Description                                                  |
 | ------- | ------------- | ------------------------------------------------------------ |
-| locator | vector\<Hash> | a sequence of latest milestone hashes, used to help the remote peer to locate the last common milestone of both peers |
+| locator | vector<Hash> | a sequence of latest milestone hashes, used to help the remote peer to locate the last common milestone of both peers |
 | nonce   | uint32_t      | a random number used as the ID of a particular Inv message   |
 
 `Inv`
 
 | Field  | Type          | Description                                                  |
 | ------ | ------------- | ------------------------------------------------------------ |
-| hashes | vector\<Hash> | a sequence of latest milestone hashes, which means the local peer lacks these milestones. If there is only the genesis block hash, then the local peer should send older milestone hashes since they didn’t find common milestone in the `GetInv` message. If the hash list is empty, then the two peers reach the same height |
+| hashes | vector<Hash> | a sequence of latest milestone hashes, which means the local peer lacks these milestones. If there is only the genesis block hash, then the local peer should send older milestone hashes since they didn’t find common milestone in the `GetInv` message. If the hash list is empty, then the two peers reach the same height |
 | nonce  | uint32_t      | a random number, the same as the corresponding one in the GetInv message |
 
 `GetData`
@@ -108,12 +108,12 @@ Here’s the data structures of the sync messages used above.
 | Field        | Type              | Description                                                  |
 | ------------ | ----------------- | ------------------------------------------------------------ |
 | type         | uint8_t           | indicates the type of data , now we supports `level set` (data that has been confirmed by some milestones) and `pending set` (data that hasn’t been confirmed by any milestones) |
-| bundleNonces | vector\<uint32_t> | a list of random numbers, used as the ID of each data set    |
-| hashes       | vector\<Hash>     | a list of milestone hashes corresponding to some data sets   |
+| bundleNonces | vector<uint32_t> | a list of random numbers, used as the ID of each data set    |
+| hashes       | vector<Hash>     | a list of milestone hashes corresponding to some data sets   |
 
 `Bundle`
 
 | Field  | Type           | Description                                            |
 | ------ | -------------- | ------------------------------------------------------ |
-| blocks | vector\<Block> | block data sets                                        |
+| blocks | vector<Block> | block data sets                                        |
 | nonce  | uint32_t       | the random number corresponding to the GetData message |
