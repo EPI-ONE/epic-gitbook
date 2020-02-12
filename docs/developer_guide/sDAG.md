@@ -12,7 +12,7 @@ Solving cryptographic puzzle is also the proof of work in epic network. Note tha
 
 DAG in epic network requires each previous link pointing to the previous block the miner just mined. The figure below illustrates a typical scenario with 5 different miners. Blocks in each perpendicular line are mined by the same miner, who is also called a peer in epic network. We call the chain of block connected by previous link the *peer chain*. The first block in each peer chain points to the genesis block.
 
-![Peer Chain Illustration](../.gitbook/assets/screenshot-2019-03-28-at-1.06.57-pm.png)
+![Peer Chain Illustration](../.gitbook/assets/peer_chain_illu.png)
 
 ## Tip
 
@@ -24,5 +24,4 @@ We just mentioned that milestone links above which point to a milestone block. T
 
 So it is important for DAG to partition blocks into level sets. We say a block is *confirmed* if it is pointed or linked either directly or indirectly by a milestone block. Hence when a milestone block is mined and added to DAG, a level set appears accordingly, consisting of blocks confirmed by this milestone block but not confirmed by old milestone blocks. In other words, if we call the collection of all the blocks in DAG not being confirmed as pending set, then a new level set contains blocks just confirmed by the milestone block in the pending set. As the following figure illustrates, the red blocks are milestones and the gray shaded areas represent the different level sets. The pending set is the orange rectangle area as these blocks have not been confirmed by any milestones.
 
-![Sample Level Set](../.gitbook/assets/screenshot-2019-03-28-at-1.07.10-pm.png)
-
+![Sample Level Set](../.gitbook/assets/level_set_illu.png)

@@ -29,7 +29,7 @@ We would like to propose a mild inflation model. To explain it, we use "year" as
 
 Such a scheme leads to a logarithm increase in the total supply. Note that logarithm infinite is quite “close” to finite, as shown in the following picture. This growth is much slower than exponential or linear increase.
 
-![minted](../graphs/minted.png)
+![minted](.gitbook/assets/minted.png)
 
 We allow such a logarithm increase because:
 

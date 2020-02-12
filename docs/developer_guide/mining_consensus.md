@@ -149,45 +149,4 @@ Besides sortition, we say a transaction is valid in the offline verification if 
 
 The following graph is an abstract work flow chart for both the online and offline (in the yellow shade) verification.
 
-```mermaid
-graph TD
-st(Peer receives a block) --> syntax{Is syntax valid?}
-	syntax --yes--> solid{Is it solid?}
-	solid --yes--> too_old{Is it too old?}
-	too_old --no--> is_ms{Is it a ms <br/> on any chain?}
-	is_ms --yes--> dfs[DFS on the pending set <br/> starting from the block. <br/> Return a list L of blocks.]
-	dfs --> verify[Iterate L and verify <br/> each block in it]
-	verify --> add_ms(Add the milestone to the <br/> corresponding chain)
-	
-syntax --no--> dis(Discard)
-
-solid --no--> all_rec{Have we received <br/> all its ancestors?}
-  all_rec --no--> sync[Start sync with the peer <br/> who sent us this block]
-  sync --> obc(Add to OBC)
-  all_rec --yes--> obc
-	
-too_old --yes--> dis1(Discard)
-is_ms --no--> add_pen(Add to pending)
-
-verify -.- first{Is b first reg?}
-
-subgraph For each block b in L
-  first --no--> red{Is b a redemption?}
-	red --no--> normal(Verify the unmarked txns in b <br/> and mark them VALID or INVALID <br/> accordingly.)
-	
-	first --yes--> valid[Mark the first <br/> tx VALID]
-	valid --> invalid(Mark all the other <br/> txns INVALID)
-	
-	red --yes--> last_red{Is the last reg <br/> already redeemed?}
-	
-	last_red --no--> value{Is the redemption value <br/> <= redeemable value?}
-	value --yes--> valid1[Mark the first <br/> tx VALID]
-	valid1 --> more_tx
-	value --no--> invalid1[Mark the first <br/> tx INVALID]
-	
-	last_red --yes--> invalid1
-	invalid1 --> more_tx{Are there more <br/> than one tx in b?}
-	more_tx --yes--> normal
-	more_tx --no--> e(Do nothing)
-end
-```
+![verification workflow](/home/oersted/epic-gitbook/docs/.gitbook/assets/veri_workflow.png)
