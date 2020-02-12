@@ -2,139 +2,27 @@
 
 This is a basic guide on the main logic and properties of DAG. For detailed explanation, please refer to [research paper](https://arxiv.org/pdf/1901.02755.pdf).
 
-## Peer Chain
+The basic element in our structured DAG of course is the block. Here we do some abstraction for simplicity, only considering that a block contains three references to some other blocks in DAG, known as hash (or uint256 in code), nonce which is the solution to cryptographic puzzle and message it commits. Moreover, we give the name three references as milestone link, previous link and tip link.
+
+## Proof of work
+
+Solving cryptographic puzzle is also the proof of work in epic network. Note that a good solution requires the hash of the block having leading zeros. The number of leading zeros indicates the difficulty level of the solution. More zeros are, the puzzle is more likely to be harder to solve. Epic network has two dynamically changing difficulty level called *block difficulty* and *milestone difficulty* respectively. All the blocks in the DAG reach the block difficulty as compulsion. However, it is possible for each block to reach milestone difficulty, which is set more difficult than block difficulty. In this case we call it a milestone block. And milestone links must point to a milestone block or the genesis block.
+
+## Peer chain
+
+DAG in epic network requires each previous link pointing to the previous block the miner just mined. The figure below illustrates a typical scenario with 5 different miners. Blocks in each perpendicular line are mined by the same miner, who is also called a peer in epic network. We call the chain of block connected by previous link the *peer chain*. The first block in each peer chain points to the genesis block.
 
 ![Peer Chain Illustration](../.gitbook/assets/screenshot-2019-03-28-at-1.06.57-pm.png)
 
-* The figure illustrates a typical scenario with 5 different miners. The red boxes indicates the milestones in the main chain while the blue box is a forked milestone. In this structure, blocks mined by the same miner are organized into a _peer chain_. 
+## Tip
 
-## Tip Set
+Tip links are helpers in our DAG to increase connectivity among different peer chains. The only requirement for the tip link is to point to a regular block of another miner. However, epic reward scheme incentivizes the tip links pointing newest block as much as it can.
 
-* Tips are blocks which do not have other blocks connected to it. These are simply the latest mined blocks.
-* Miners will locate these tips to connect to their own blocks
+## Milestone and level set
 
-## Level set
+We just mentioned that milestone links above which point to a milestone block. The milestone blocks as well as milestone links play an vitally important role in reaching consensus in DAG. There are two major functions of milestones, confirming level sets and connecting each level set. Level sets are analogous to the structure of blocks in Bitcoin. It contains many blocks which are equivalent to a single block in the view of Bitcoin. 
+
+So it is important for DAG to partition blocks into level sets. We say a block is *confirmed* if it is pointed or linked either directly or indirectly by a milestone block. Hence when a milestone block is mined and added to DAG, a level set appears accordingly, consisting of blocks confirmed by this milestone block but not confirmed by old milestone blocks. In other words, if we call the collection of all the blocks in DAG not being confirmed as pending set, then a new level set contains blocks just confirmed by the milestone block in the pending set. As the following figure illustrates, the red blocks are milestones and the gray shaded areas represent the different level sets. The pending set is the orange rectangle area as these blocks have not been confirmed by any milestones.
 
 ![Sample Level Set](../.gitbook/assets/screenshot-2019-03-28-at-1.07.10-pm.png)
-
-* A level set is analogous to the structure of blocks in Bitcoin
-* A level set consists of a milestone block and the blocks directly and indirectly pointed by it, until the previous level set.
-* Level sets are used for batch synchronization and storage in DB
-* The grey shaded area represents the different level sets
-* Pending Set
-  * The orange rectangle represents blocks that have not been confirmed by any milestone on the longest milestone chain
-
-## Mempool
-
-* In a high TPS environment, Bitcoin's mempool design is not efficient because the same transaction will be mined by multiple miners. This may cause miners to waste their computing power as some of their blocks might have been mined by other earlier miners.
-* Attackers might be able to exploit this by initiating transactions with high fees and flood the system with mined transactions
-* We use transaction partition to ensure some transactions can only mined by certain miners
-* The basic idea is to limit the number of transactions a miner can process depending on each miner's hashing power
-* A parameter is adjusted to ensure a balance is maintained between the time a transaction is expected to wait in the mempool and the wasted energy due to collision in mined transactions.
-
-## Synchronization: Workflow and API
-
-The synchronization process happens between the Peer and DAG modules. Their rolls in short, Peer processes messages received from the network, and requests data from DAG accordingly. Detailed workflow is lists below.
-
-_Note:_
-
-* _The split "~~~" means changing to the perspective of another peer on the network_
-* _API functions are marked in the form:_ 
-
-```css
-ModuleName#function_name(arguments: [arg1, arg2, ...], return: if any)
-```
-
-**1**\) In `Peer#process_version_message(args: [VersionMessage])` , if our height is less than the peer’s, proceed to 2\).
-
-**2**\) `DAG#request_inv`, adds the GetBlocksMessage to Peer’s message sending queue according to the BlockLocator constructed in 3\), and waits for callback \(List\ from InventoryMessage\):
-
-* If the list is empty, stop. 
-* If the list contains the only the genesis hash, repeat 3\). with a different _fromHash_ and larger _length_.
-* Else, proceed to 7\).
-
-**3**\) `Peer#construct_locator(args: [Hash fromHash, long length], return: BlockLocator)` assembles the BlockLocator required by 2\).
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**4**\) When Peer receives the message in 3\), Peer\#process\_get\_blocks\_message and sends the request to DAG, waits for the callback \(List\\) and adds the InventoryMessage according to the callback value to Peer’s message sending queue.
-
-**5\)** `DAG#assemble_inv(args:[List<Hash> locator], return: List<Hash>)` returns the result as the callback to 4\).
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**6**\) When Peer receives the inv in 5., `Peer#process_inv` and returns the list of hashes in inv as the callback to 2\).
-
-**7**\) `DAG#request_data(args: [List<Hash>] inv)` adds the GetDataMessage according to the inv received in 6. to the peer’s message sending queue. Record the order of the inv in `get_data_queue<Futures>`, in which each waits for a callback \(Bundle\):
-
-* If the callback is successful, add the blocks in Bundle to Cat., and proceed with the hash references to the section “Verification”.
-* Else, remove the Future in `get_data_queue`.
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**8**\) When Peer receives the GetDataMsg in 7\), Peer\#process\_get\_data and sends the request to DAG, waits for the callback \(Bundle\) and adds the callback value to its message sending queue.
-
-**9\)** `DAG#get_bundle(args: [Hash hash], return: Bundle)` returns the result as the callback to 8\).
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**10**\) When Peer receives the Bundle in 9\), `Peer#process_bundle(args: [Bundle])` checks that it corresponds to the head of `getDataQueue`:
-
-* If this is the case, add the Bundle as a callback to 7\).
-* Else, put the Bundle in the `lvs_pool` and check if any Bundle in the `lvs_pool` matches the head of `getDataQueue`. If this is the case, repeat `Peer#process_bundle` with this Bundle.
-
-## Verification: Workflow and API
-
-There are two types of verification processes: `verify_syntax` and `validate_block`:
-
-* The former one happens in Cat for each block received from the network or from RPC applications. When the syntax check passes, blocks are added to a memory database in Cat. For any non-solid block, Cat sends synchronization requests to DAG. 
-* The latter one is triggered in DAG whenever `DAG#update_pendings` finds a block to be a milestone on the main chain.
-
-Two functions are used when adding blocks to Cat with respect to the form upon receival \(single Block or Bundle\): `addBlockToCat` and `addBundleToCat`. Detailed workflow are listed below.
-
-* `Cat#addBlockToCat(args: [Block block, Peer peer_received_from])`:
-  * 1. If `Cat#is_exist(block)`, **return**.
-    2. If `Cat#is_solid(block)`, `DAG#verify_syntax`. Else: A
-       * Add `block` to OBC
-       * If `Cat#contains(block.all_links) == true`, **return**.
-       * Else, throw VerificationException and request synchronization.
-    3. `Cat#verify_syntax(block)`
-    4. `Cat#store_to_memory(block)`
-    5. `DAG#update_pendings(&block)`:
-       * `MilestoneChainHead#add_block_to_pending(&block)` for every branch
-       * If `DAG#is_milestone(&block)` \(on main chain\), `DAG#validate_block(&block)`:
-         * If `block.hash_transaction`, `DAG#validate_tx(block, head.height)`:
-           * If `block.tx` is a redemption, `DAG#validate_redemption(block)`
-             1. Check that the redemption key is indeed the from the last registration block on the peer chain. If this is not the case, mark `block.tx` to be invalid and **return**.
-             2. Check that the redemption value is smaller than the peer chain’s accumulative reward. If this is not the case, mark `block.tx` to be invalid and **return**.
-             3. Mark `block.tx` to be valid and **return**.
-           * Else, verify that the total value of inputs is not less than the total value of outputs. If this is not the case, mark `block.tx` to be invalid and **return**.
-           * For each `TransactionInput input` in `block.tx`,
-             1. `UTXO prev_out = Cat#get_utxo(&block.tx)`
-             2. If `input.get_script_signature.correctly_spends(utxo, verify_flags)` throws ScriptException, mark `block.tx` to be invalid and **return**.
-             3. `Cat#update_utxo(input)`
-    6. `Cat#release_blocks_from_OBC(block.hash)`
-* `Cat#addBundleToCat(args: [List<Block> blocks, boolean check_solidify])`: 
-  * 1. `List<Blocks> sorted = DAG#topological_sort(blocks)`.
-    2. For each `block` in `sorted`, perform similar operations as `addBlockToDAG`.
-
-## Orphan Block Container \(OBC\) Workflow
-
-**Remark:** Need to be integrated with CAT or itself can be a part of CAT
-
-### Elements in OBC
-
-* For blocks that are temporarily not solid in CAT, we have another shared\_ptr stored in OBC that points to the block or block entry. And we say the block is added to OBC.
-* When a block b is added into OBC, we do:
-* 1. Update OBC\_Dict: ${\mbox{hash } h : S\_h  \cup b}$ if h is a missing hash of b
-  2. Add non-solid Degree of b: \# of missing hashes
-
-### Update Procedure
-
-* When adding a block b to DM\(dag manager\), we see if we can update OBC \(Achieved by threading\).
-* Remove the block in OBC\_Dict.get\(b.getHash\) and decrease their solid degree by 1. For those got non-solid degree 0, remove them from OBC.
-
-## Fork Resolve Process
-
-## Reward Scheme
 

@@ -1,6 +1,6 @@
 # Architecture
 
-This article provides a brief explanation of our coding project, how we implement the consensus mechanism in `C++`.
+This article provides a brief explanation of our coding project, how we implement the consensus mechanism in C++.
 
 ## Dependencies
 
