@@ -1,33 +1,33 @@
-# Install
+# Dependencies
 
 ## Basic tools via system installation
 
-We provide instructions for two operating systems: Ubuntu and MacOS. 
+We provide instructions for two operating systems: Ubuntu and MacOS.
 
 ### Ubuntu 18.04
 
-0. Install some basics build tools
+1. Install some basics build tools
 
-    ```bash
+   ```bash
     sudo apt-get install autoconf libtool pkg-config
-    ```
-    
-1. Install gcc-8
+   ```
 
-    ```bash
+2. Install gcc-8
+
+   ```bash
     sudo apt-get install gcc-8 g++-8
-    ```
+   ```
 
-    Update alternatives
+   Update alternatives
 
-    ```bash
+   ```bash
     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100
     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 100
-    ```
+   ```
 
-0. Install clang-9
+3. Install clang-9
 
-   Add repository. If you have a different version of Ubuntu other than 18.04, see https://apt.llvm.org for corresponding repos.
+   Add repository. If you have a different version of Ubuntu other than 18.04, see [https://apt.llvm.org](https://apt.llvm.org) for corresponding repos.
 
    ```bash
    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -43,42 +43,43 @@ We provide instructions for two operating systems: Ubuntu and MacOS.
    sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-9 100
    ```
 
-1. (Optional) for `libsecp256k1`
+4. \(Optional\) for `libsecp256k1`
 
-    ```bash
+   ```bash
     sudo apt-get install libgmp-dev
-    ```
+   ```
 
 ### Mac OS X 10.15
 
-0. XCode11
+1. XCode11
 
-     ```bash
+   ```bash
      xcode-select --install
-     ```
-     Mac provides its own C/C++ compiler and lib via XCode, `Apple clang version 11.0.0 (clang-1100.0.33.8)`. Mac OS X must upgrade to 10.15.
-     
-1. Brew
+   ```
 
-    ```bash
+   Mac provides its own C/C++ compiler and lib via XCode, `Apple clang version 11.0.0 (clang-1100.0.33.8)`. Mac OS X must upgrade to 10.15.
+
+2. Brew
+
+   ```bash
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    ```
+   ```
 
-2. Some configure/make tools
+3. Some configure/make tools
 
-    ```bash
+   ```bash
     brew install automake autoconf libtool
-    ```
+   ```
 
-3. (Optional) for `libsecp256k1`
+4. \(Optional\) for `libsecp256k1`
 
-    ```bash
+   ```bash
     brew install gmp
-    ```
+   ```
 
 ## Dependencies installation from source
 
-Some depencencies need to be installed from the source. The following is the detailed instruction, with slight variation depending on Linux (Ubuntu/CentOS) or Mac.
+Some depencencies need to be installed from the source. The following is the detailed instruction, with slight variation depending on Linux \(Ubuntu/CentOS\) or Mac.
 
 #### CMake
 
@@ -115,7 +116,7 @@ cd openssl
 ./config && make -j && sudo make install
 ```
 
-This is required by `libevent` and `secp256k1`. 
+This is required by `libevent` and `secp256k1`.
 
 #### Protocol Buffers
 
@@ -138,7 +139,7 @@ sudo make install
 sudo ldconfig # refresh shared library cache.
 ```
 
-If "make check" fails, you can still install, but it is likely that some features of this library will not work correctly on your system. Proceed at your own risk.  [https://github.com/protocolbuffers/protobuf/blob/master/src/README.md](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
+If "make check" fails, you can still install, but it is likely that some features of this library will not work correctly on your system. Proceed at your own risk. [https://github.com/protocolbuffers/protobuf/blob/master/src/README.md](https://github.com/protocolbuffers/protobuf/blob/master/src/README.md)
 
 #### gRPC
 
@@ -189,7 +190,7 @@ cmake ..
 make -j && sudo make install
 ```
 
->   The brew-installed `libevent` (version 2.1.11_1) on Mac does not work smoothly for now. So please compile as instructed in the above.
+> The brew-installed `libevent` \(version 2.1.11\_1\) on Mac does not work smoothly for now. So please compile as instructed in the above.
 
 #### Google Test
 
@@ -208,3 +209,4 @@ cd secp256k1
 ./autogen.sh && ./configure --enable-module-recovery=yes
 make -j && sudo make install
 ```
+

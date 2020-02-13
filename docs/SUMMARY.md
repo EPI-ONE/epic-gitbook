@@ -5,13 +5,14 @@
 
 ## Getting Started
 
-* [Dependencies](INSTALL.md)
-* [Compile and Run](compile-run.md)
+* [Dependencies](getting-started/install.md)
+* [Compile and Run](getting-started/compile-run.md)
 
 ## Developer Guide
 
-* [Architecture](developer_guide/architecture.md)
-* [Network](developer_guide/network.md)
-* [Sturctured DAG](developer_guide/sDAG.md)
-* [Consensus](developer_guide/mining_consensus.md)
-* [Storage](developer_guide/storage.md)
+* [Architecture](developer-guide/architecture.md)
+* [Network](developer-guide/network.md)
+* [Sturctured DAG](developer-guide/sdag.md)
+* [Consensus](developer-guide/mining_consensus.md)
+* [Storage](developer-guide/storage.md)
+
